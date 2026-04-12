@@ -20,7 +20,6 @@ zellij = "latest"
 neovim = "latest"
 opencode = "latest"
 btop = "latest"
-chezmoi = "latest"
 
 [settings]
 
