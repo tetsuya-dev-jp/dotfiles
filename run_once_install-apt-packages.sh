@@ -3,6 +3,7 @@ set -euo pipefail
 
 # ツール個別のセットアップ前に必要な基本パッケージを入れる。
 packages=(
+  age
   build-essential
   cmake
   curl

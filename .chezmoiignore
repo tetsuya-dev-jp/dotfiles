@@ -1,8 +1,4 @@
-# シークレットを含むファイル（手動でコピーする）
-.config/shell/.env.local
-
 # ツールが自動生成するディレクトリ・ファイル
-.config/gh/
 .config/gcloud/
 .config/google-chrome/
 .config/google-chrome-for-testing/
@@ -13,10 +9,8 @@
 .config/browseruse/
 .config/create-next-app-nodejs/
 .config/chezmoi/
-.config/chezmoi-tui/
-.config/nextjs-nodejs/
 .config/nix/
-.config/pnpm/
+.config/nextjs-nodejs/
 .config/pulse/
 .config/slidecode/
 .config/uv/
@@ -25,11 +19,11 @@
 .config/zed_server/
 .config/gws/
 .config/systemd/
-.config/mimeapps.list
 .config/opencode/node_modules/
 .config/opencode/package-lock.json
 .config/opencode/package.json
 .config/opencode/.gitignore
+.config/opencode/opencode.json
 
 # キャッシュ・自動生成
 .cache/
@@ -44,7 +38,6 @@
 .mozilla/
 .vscode/
 .vscode-server/
-.ssh/
 .gnupg/
 .claude/
 .claude.json
@@ -57,6 +50,10 @@
 .tmp/
 .Library/
 .obsidian/
+
+# SSH - known_hostsは管理外
+.ssh/known_hosts
+.ssh/known_hosts.old
 
 # シェル履歴・一時ファイル
 .zsh_history
