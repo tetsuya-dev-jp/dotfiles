@@ -1,0 +1,13 @@
+[tools]
+aqua = "latest"
+bun = "latest"
+gemini = "latest"
+node = "latest"
+npm = "latest"
+pnpm = "latest"
+rust = "latest"
+
+[settings]
+
+[settings.npm]
+package_manager = "bun"
