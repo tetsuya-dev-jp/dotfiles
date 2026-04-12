@@ -1,5 +1,5 @@
 # シークレットを含むファイル（手動でコピーする）
-.config/shell/env.local
+.config/shell/.env.local
 
 # ツールが自動生成するディレクトリ・ファイル
 .config/gh/

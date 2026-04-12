@@ -20,7 +20,7 @@ eval "$(starship init zsh)"
 export PATH="$HOME/.local/bin:$PATH"
 
 # 秘密情報を読み込み
-[[ -f ~/.config/shell/env.local ]] && source ~/.config/shell/env.local
+[[ -f ~/.config/shell/.env.local ]] && source ~/.config/shell/.env.local
 
 # Aliases
 alias l='lsd'

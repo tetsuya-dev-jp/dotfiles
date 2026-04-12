@@ -1,0 +1,8 @@
+# API Keys & Secrets
+# このファイルを ~/.config/shell/.env.local にコピーし、値を埋めてください
+
+# npm
+export NPM_AUTH_TOKEN=""
+
+# Context7 API
+export CONTEXT7_API_KEY=""
