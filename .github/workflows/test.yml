@@ -1,0 +1,108 @@
+name: Test chezmoi apply
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  chezmoi-apply:
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install prerequisites
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            curl git sudo zsh age
+
+      - name: Install chezmoi
+        run: |
+          curl -sfL https://get.chezmoi.io | sh
+
+      - name: Create test age key
+        run: |
+          mkdir -p ~/.config/chezmoi/key
+          age-keygen -o ~/.config/chezmoi/key/age.key
+          echo "AGE recipient for test:"
+          age-keygen -y ~/.config/chezmoi/key/age.key
+
+      - name: Create chezmoi config
+        run: |
+          recipient="$(age-keygen -y ~/.config/chezmoi/key/age.key)"
+          cat > ~/.config/chezmoi/chezmoi.toml <<EOF
+          encryption = "age"
+
+          [data]
+            name = "Test User"
+            email = "test@example.com"
+
+          [diff]
+            command = "diff"
+
+          [age]
+            identity = "~/.config/chezmoi/key/age.key"
+            recipient = "${recipient}"
+          EOF
+
+      - name: Run chezmoi init
+        run: |
+          chezmoi init --source=.
+          chezmoi verify
+
+      - name: Run chezmoi apply
+        run: |
+          chezmoi apply --verbose
+
+      - name: Verify files exist
+        run: |
+          files=(
+            "$HOME/.zshrc"
+            "$HOME/.gitconfig"
+            "$HOME/.ssh/id_ed25519.pub"
+            "$HOME/.config/starship.toml"
+            "$HOME/.config/zellij/config.kdl"
+            "$HOME/.config/shell/.env.local.example"
+            "$HOME/.config/git/ignore"
+            "$HOME/.config/gh/config.yml"
+            "$HOME/.config/mise/config.toml"
+          )
+          for f in "${files[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "FAIL: $f not found"
+              exit 1
+            fi
+            echo "OK: $f"
+          done
+
+      - name: Verify encrypted files decrypted
+        run: |
+          encrypted_files=(
+            "$HOME/.ssh/id_ed25519"
+            "$HOME/.npmrc"
+            "$HOME/.config/shell/.env.local"
+            "$HOME/.config/gh/hosts.yml"
+            "$HOME/.config/opencode/opencode.jsonc"
+          )
+          for f in "${encrypted_files[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "FAIL: $f not decrypted"
+              exit 1
+            fi
+            echo "OK: $f decrypted"
+          done
+
+      - name: No plain-text secrets in source
+        run: |
+          git ls-files | while read -r f; do
+            [[ "$f" == *.age ]] && continue
+            if grep -Pi '(AGE-SECRET-KEY|BEGIN\s+OPENSSH\s+PRIVATE\s+KEY|gho_[a-zA-Z0-9]{36}|npm_[a-zA-Z0-9]{20,}|ctx7sk_[a-zA-Z0-9-]+)' "$f" 2>/dev/null; then
+              echo "SECRET FOUND in $f"
+              exit 1
+            fi
+          done
