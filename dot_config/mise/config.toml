@@ -1,11 +1,26 @@
 [tools]
-aqua = "latest"
+# core language runtimes
+node = "lts"
 bun = "latest"
-gemini = "latest"
-node = "latest"
-npm = "latest"
-pnpm = "latest"
-rust = "latest"
+
+# CLI tools
+uv = "latest"
+starship = "latest"
+gh = "latest"
+bat = "latest"
+fd = "latest"
+fzf = "latest"
+jq = "latest"
+ripgrep = "latest"
+zoxide = "latest"
+eza = "latest"
+delta = "latest"
+dust = "latest"
+zellij = "latest"
+neovim = "latest"
+opencode = "latest"
+btop = "latest"
+chezmoi = "latest"
 
 [settings]
 
