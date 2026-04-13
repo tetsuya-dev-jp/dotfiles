@@ -39,6 +39,7 @@ jobs:
           files=(
             "$HOME/.zshrc"
             "$HOME/.gitconfig"
+            "$HOME/.agents/AGENTS.md"
             "$HOME/.config/starship.toml"
             "$HOME/.config/zellij/config.kdl"
             "$HOME/.config/shell/.env.local.example"

@@ -11,11 +11,13 @@ packages=(
   git
   imagemagick
   jq
+  lsof
   make
   net-tools
   openssh-client
   poppler-utils
   unzip
+  wslu
   zsh
   7zip
 )

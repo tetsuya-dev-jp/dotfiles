@@ -12,7 +12,7 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 
 これで以下が自動で行われます：
 
-- apt パッケージのインストール（zsh, git, curl, jq 等）
+- apt パッケージのインストール（zsh, git, curl, jq, wslu 等）
 - デフォルトシェルの zsh への変更
 - mise 経由でツール群をインストール（node, bun, eza, starship, gh, bitwarden, delta, nvim 等）
 - 平文 dotfiles の配置
@@ -35,7 +35,7 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 
 - `sudo` パスワード
 - Bitwarden のログイン情報と必要なら MFA
-- GitHub CLI 認証
+- GitHub CLI 認証（WSL から Windows 側ブラウザを利用）
 
 ### 4. 復元・生成される主なファイル
 
@@ -56,6 +56,7 @@ chmod 600 ~/.ssh/id_ed25519
 | ファイル | 管理方式 |
 |---|---|
 | `.zshrc`, `.bashrc`, `.gitconfig` | 平文 |
+| `.agents/` | 平文 |
 | `.config/starship.toml`, `.config/zellij/`, `.config/nvim/` | 平文 |
 | `.config/mise/config.toml`, `.config/gh/config.yml` | 平文 |
 | `.ssh/id_ed25519`, `.ssh/id_ed25519.pub`, `.config/gh/hosts.yml` | 初回セットアップ時に生成 |

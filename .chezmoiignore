@@ -43,7 +43,6 @@
 .claude.json
 .codex/
 .gemini/
-.agents/
 .pencil/
 .dev/
 .gws/
