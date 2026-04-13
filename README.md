@@ -1,6 +1,6 @@
 # tetsuya.dev dotfiles
 
-chezmoi + age で管理するドットファイル。
+chezmoi + Bitwarden で管理するドットファイル。
 
 ## セットアップ（新マシン）
 
@@ -12,39 +12,40 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 
 これで以下が自動で行われます：
 
-- apt パッケージのインストール（age, zsh, git, curl 等）
+- apt パッケージのインストール（zsh, git, curl, jq 等）
 - デフォルトシェルの zsh への変更
-- mise 経由でツール群をインストール（node, bun, starship, gh, delta, nvim 等）
-- 暗号化ファイル**以外**のドットファイルが配置される
+- mise 経由でツール群をインストール（node, bun, starship, gh, bitwarden, delta, nvim 等）
+- 平文 dotfiles の配置
+- 対話式の初回セットアップ
+  - Bitwarden ログインと secret 復元
+  - `gh auth login`
+  - SSH 鍵の生成と GitHub への登録
 
-### 2. age 鍵の配置
+### 2. Bitwarden アイテムの準備
 
-暗号化ファイルを復号するには、age 秘密鍵が必要です。
+初回セットアップでは、以下の secure note を Bitwarden に置いておきます。
 
-```bash
-mkdir -p ~/.config/chezmoi/key
-# 別マシンから鍵をコピー:
-# scp ~/.config/chezmoi/key/age.key <new-host>:~/.config/chezmoi/key/age.key
-chmod 600 ~/.config/chezmoi/key/age.key
-```
+- `dotfiles: ~/.config/shell/.env.local`
+- `dotfiles: ~/.npmrc`
+- `dotfiles: ~/.config/opencode/opencode.jsonc`
 
-### 3. 暗号化ファイルの復元
+各アイテムの note に、そのままファイルの中身を保存します。
 
-鍵を配置したあと、暗号化ファイルを復元します。
+### 3. 初回セットアップ中に入力するもの
 
-```bash
-chezmoi apply
-```
+- `sudo` パスワード
+- Bitwarden のログイン情報と必要なら MFA
+- GitHub CLI 認証
 
-以下のファイルが復元されます：
+### 4. 復元・生成される主なファイル
 
-- `~/.ssh/id_ed25519` — SSH 秘密鍵
-- `~/.npmrc` — npm 認証トークン
-- `~/.config/gh/hosts.yml` — GitHub CLI 認証
-- `~/.config/shell/.env.local` — 環境変数（API キー等）
-- `~/.config/opencode/opencode.jsonc` — OpenCode 設定
+- `~/.config/shell/.env.local` — Bitwarden から生成
+- `~/.npmrc` — Bitwarden から生成
+- `~/.config/opencode/opencode.jsonc` — Bitwarden から生成
+- `~/.ssh/id_ed25519` — 初回セットアップで新規生成
+- `~/.config/gh/hosts.yml` — `gh auth login` で生成
 
-### 4. SSH 鍵のパーミッション設定
+### 5. SSH 鍵のパーミッション設定
 
 ```bash
 chmod 600 ~/.ssh/id_ed25519
@@ -56,14 +57,12 @@ chmod 600 ~/.ssh/id_ed25519
 |---|---|
 | `.zshrc`, `.bashrc`, `.gitconfig` | 平文 |
 | `.config/starship.toml`, `.config/zellij/`, `.config/nvim/` | 平文 |
-| `.config/mise/config.toml` | 平文 |
-| `.ssh/id_ed25519.pub`, `.config/gh/config.yml` | 平文 |
-| `.ssh/id_ed25519`, `.npmrc`, `.config/gh/hosts.yml` | age 暗号化 |
-| `.config/shell/.env.local`, `.config/opencode/opencode.jsonc` | age 暗号化 |
+| `.config/mise/config.toml`, `.config/gh/config.yml` | 平文 |
+| `.ssh/id_ed25519`, `.ssh/id_ed25519.pub`, `.config/gh/hosts.yml` | 初回セットアップ時に生成 |
+| `.npmrc`, `.config/shell/.env.local`, `.config/opencode/opencode.jsonc` | Bitwarden から生成 |
 
 ## セットアップ後の手動作業
 
-- [ ] GitHub CLI で `gh auth login` を実行（認証トークンの更新）
 - [ ] Homebrew のインストール（Linux の場合）
 
 ## コマンド
@@ -75,8 +74,8 @@ chezmoi diff
 # ファイル更新をソースに反映
 chezmoi add ~/.zshrc
 
-# 暗号化ファイルの編集
-chezmoi edit ~/.ssh/id_ed25519
+# Bitwarden の secret を更新したあとに反映
+chezmoi apply
 
 # ソースの変更をホームに適用
 chezmoi apply

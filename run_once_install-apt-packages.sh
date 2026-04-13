@@ -3,15 +3,17 @@ set -euo pipefail
 
 # ツール個別のセットアップ前に必要な基本パッケージを入れる。
 packages=(
-  age
   build-essential
+  ca-certificates
   cmake
   curl
   ffmpeg
   git
   imagemagick
+  jq
   make
   net-tools
+  openssh-client
   poppler-utils
   unzip
   zsh

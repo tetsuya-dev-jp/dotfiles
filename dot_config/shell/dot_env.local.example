@@ -1,5 +1,6 @@
 # API Keys & Secrets
-# このファイルを ~/.config/shell/.env.local にコピーし、値を埋めてください
+# 初回セットアップ時は Bitwarden の secure note
+# `dotfiles: ~/.config/shell/.env.local` から自動生成されます。
 
 # npm
 export NPM_AUTH_TOKEN=""
