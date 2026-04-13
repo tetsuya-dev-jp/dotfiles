@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-readonly BW_ITEM_ENV_LOCAL='dotfiles: ~/.config/shell/.env.local'
-readonly BW_ITEM_NPMRC='dotfiles: ~/.npmrc'
-readonly BW_ITEM_OPENCODE='dotfiles: ~/.config/opencode/opencode.jsonc'
+readonly BW_SECURE_NOTES=(
+  'dotfiles: ~/.config/shell/.env.local|~/.config/shell/.env.local|600'
+  'dotfiles: ~/.npmrc|~/.npmrc|600'
+)
 
 if [[ -n "${CI:-}" || ! -t 0 || ! -t 1 ]]; then
   printf 'Skipping interactive personal setup in non-interactive environment.\n'
@@ -89,16 +90,26 @@ materialize_bitwarden_note() {
   printf 'Wrote %s from Bitwarden.\n' "${destination}"
 }
 
+materialize_bitwarden_secure_notes() {
+  local note_spec
+  local item_name
+  local destination
+  local mode
+
+  for note_spec in "${BW_SECURE_NOTES[@]}"; do
+    IFS='|' read -r item_name destination mode <<< "${note_spec}"
+    materialize_bitwarden_note "${item_name}" "${HOME}/${destination#~/}" "${mode}"
+  done
+}
+
 setup_bitwarden_backed_files() {
-  if ! prompt_yes_no 'Fetch shared secrets from Bitwarden now?' 'Y'; then
+  if ! prompt_yes_no 'Fetch Bitwarden-backed files now? (~/.config/shell/.env.local, ~/.npmrc)' 'Y'; then
     printf 'Skipped Bitwarden-backed secret setup.\n'
     return
   fi
 
   ensure_bitwarden_session
-  materialize_bitwarden_note "${BW_ITEM_ENV_LOCAL}" "${HOME}/.config/shell/.env.local" 600
-  materialize_bitwarden_note "${BW_ITEM_NPMRC}" "${HOME}/.npmrc" 600
-  materialize_bitwarden_note "${BW_ITEM_OPENCODE}" "${HOME}/.config/opencode/opencode.jsonc" 600
+  materialize_bitwarden_secure_notes
   bw lock >/dev/null
   unset BW_SESSION
 }

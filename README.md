@@ -8,6 +8,8 @@ chezmoi + Bitwarden で管理するドットファイル。
 
 - `dot_*` / `dot_config/` - 平文で管理する dotfiles
 - `dot_agents/` - エージェント向け設定・スキル定義
+- `dot_zshenv` / `dot_zprofile` / `dot_zshrc` - zsh の責務分離された起動設定
+- `dot_config/shell/*.sh` - shell 共通の PATH / env / alias / function 定義
 - `run_once_*.sh` - 初回セットアップ時にだけ走るスクリプト
 - `.chezmoiignore` - 生成物やマシン固有ファイルの除外設定
 
@@ -36,13 +38,23 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 
 ### 2. Bitwarden アイテムの準備
 
-初回セットアップでは、以下の secure note を Bitwarden に置いておきます。
+初回セットアップでは、以下の secure note だけを Bitwarden に置いておきます。
 
 - `dotfiles: ~/.config/shell/.env.local`
 - `dotfiles: ~/.npmrc`
-- `dotfiles: ~/.config/opencode/opencode.jsonc`
 
 各アイテムの note に、そのままファイルの中身を保存します。
+
+Bitwarden と repo の責務は以下です。
+
+- Bitwarden 管理: `~/.config/shell/.env.local`, `~/.npmrc`
+- repo 管理: `~/.config/opencode/opencode.jsonc` などの非 secret 設定
+
+例えば `CONTEXT7_API_KEY` は `opencode.jsonc` には直書きせず、`~/.config/shell/.env.local` に入れます。
+
+```bash
+export CONTEXT7_API_KEY="ctx7sk-..."
+```
 
 ### 3. 初回セットアップ中に入力するもの
 
@@ -54,7 +66,6 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 
 - `~/.config/shell/.env.local` — Bitwarden から生成
 - `~/.npmrc` — Bitwarden から生成
-- `~/.config/opencode/opencode.jsonc` — Bitwarden から生成
 - `~/.ssh/id_ed25519` — 初回セットアップで新規生成
 - `~/.config/gh/hosts.yml` — `gh auth login` で生成
 
@@ -69,11 +80,12 @@ chmod 600 ~/.ssh/id_ed25519
 | ファイル | 管理方式 |
 |---|---|
 | `.zshrc`, `.bashrc`, `.gitconfig` | 平文 |
+| `.zshenv`, `.zprofile`, `.config/shell/*.sh` | 平文 |
 | `.agents/` | 平文 |
-| `.config/starship.toml`, `.config/zellij/`, `.config/nvim/` | 平文 |
+| `.config/starship.toml`, `.config/zellij/`, `.config/nvim/`, `.config/opencode/opencode.jsonc`, `.config/opencode/package.json`, `.config/opencode/package-lock.json` | 平文 |
 | `.config/mise/config.toml`, `.config/gh/config.yml` | 平文 |
 | `.ssh/id_ed25519`, `.ssh/id_ed25519.pub`, `.config/gh/hosts.yml` | 初回セットアップ時に生成 |
-| `.npmrc`, `.config/shell/.env.local`, `.config/opencode/opencode.jsonc` | Bitwarden から生成 |
+| `.npmrc`, `.config/shell/.env.local` | Bitwarden から生成 |
 
 ## コマンド
 

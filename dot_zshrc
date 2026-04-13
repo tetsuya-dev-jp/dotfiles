@@ -1,66 +1,23 @@
-# History
+# Interactive behavior
 setopt histignorealldups sharehistory
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
-# Emacs keybindings
 bindkey -e
 
-# Completion
 autoload -Uz compinit
-compinit
+mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-# Starship prompt
+[[ -f "$HOME/.config/shell/aliases.sh" ]] && source "$HOME/.config/shell/aliases.sh"
+[[ -f "$HOME/.config/shell/functions.sh" ]] && source "$HOME/.config/shell/functions.sh"
+[[ -f "$HOME/.config/shell/bun.sh" ]] && source "$HOME/.config/shell/bun.sh"
+
 eval "$(starship init zsh)"
 
-# PATH
-export PATH="$HOME/.local/bin:$PATH"
-
-# 秘密情報を読み込み
-[[ -f ~/.config/shell/.env.local ]] && source ~/.config/shell/.env.local
-
-# Aliases
-alias ls='eza'
-alias l='eza'
-alias ll='eza -al'
-alias cc='claude --dangerously-skip-permissions'
-alias codex='codex --dangerously-bypass-approvals-and-sandbox'
-alias vimdiff='nvim -d '
-alias oc='opencode'
-
-# Environment
-export EDITOR=nvim
-export VISUAL=nvim
-export OPENCODE_DISABLE_CLAUDE_CODE=1
-export OPENCODE_ENABLE_EXA=1
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# mise
-eval "$(~/.local/bin/mise activate zsh)"
-
-# opencode
-export PATH="$HOME/.opencode/bin:$PATH"
-
-# uv completion
-eval "$(uv generate-shell-completion zsh)"
-
-# Functions
-kill-port() {
-  if [ -z "$1" ]; then
-    echo "Usage: kill-port <port>"
-    return 1
-  fi
-  local pid=$(lsof -i :"$1" -t 2>/dev/null)
-  if [ -z "$pid" ]; then
-    echo "No process found on port $1"
-    return 1
-  fi
-  kill -9 $pid && echo "Killed process $pid on port $1"
-}
+if command -v uv >/dev/null 2>&1; then
+  eval "$(uv generate-shell-completion zsh)"
+fi

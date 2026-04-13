@@ -1,0 +1,2 @@
+[[ -f "$HOME/.config/shell/path.sh" ]] && source "$HOME/.config/shell/path.sh"
+[[ -f "$HOME/.config/shell/environment.sh" ]] && source "$HOME/.config/shell/environment.sh"

@@ -1,2 +1,4 @@
 # 平文の秘密情報はコミットしない
 # Bitwarden から生成されるファイルは target 側にだけ存在する
+.zcompdump
+.zcompdump-*

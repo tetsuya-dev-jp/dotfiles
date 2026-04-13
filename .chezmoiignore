@@ -1,33 +1,6 @@
-# ツールが自動生成するディレクトリ・ファイル
-.config/gcloud/
-.config/google-chrome/
-.config/google-chrome-for-testing/
-.config/inkscape/
-.config/Pencil/
-.config/dconf/
-.config/agents/
-.config/browseruse/
-.config/create-next-app-nodejs/
-.config/chezmoi/
-.config/nix/
-.config/nextjs-nodejs/
-.config/pulse/
-.config/slidecode/
-.config/uv/
-.config/wslu/
-.config/zed/
-.config/zed_server/
-.config/gws/
-.config/systemd/
+# キャッシュ・実行時依存
 .config/opencode/node_modules/
-.config/opencode/package-lock.json
-.config/opencode/package.json
-.config/opencode/.gitignore
-.config/opencode/opencode.json
-
-# キャッシュ・自動生成
 .cache/
-.local/
 .cargo/
 .rustup/
 .bun/
@@ -35,20 +8,17 @@
 .dotnet/
 .pki/
 .dbus/
+
+# 大きな実行時状態
+.config/google-chrome/
+.config/google-chrome-for-testing/
+.config/pulse/
+.config/zed_server/
 .mozilla/
-.vscode/
 .vscode-server/
+
+# 機密・ローカル状態
 .gnupg/
-.claude/
-.claude.json
-.codex/
-.gemini/
-.pencil/
-.dev/
-.gws/
-.tmp/
-.Library/
-.obsidian/
 
 # SSH - known_hostsは管理外
 .ssh/known_hosts
@@ -57,9 +27,6 @@
 # シェル履歴・一時ファイル
 .zsh_history
 .zcompdump
+.zcompdump-*
 .lesshst
 .sudo_as_admin_successful
-
-# 自動生成・一時ファイル
-.bash_logout
-.profile

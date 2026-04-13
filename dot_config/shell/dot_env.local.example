@@ -1,9 +1,0 @@
-# API Keys & Secrets
-# 初回セットアップ時は Bitwarden の secure note
-# `dotfiles: ~/.config/shell/.env.local` から自動生成されます。
-
-# npm
-export NPM_AUTH_TOKEN=""
-
-# Context7 API
-export CONTEXT7_API_KEY=""

@@ -3,20 +3,11 @@ case $- in
   *) return ;;
 esac
 
-export PATH="$HOME/.local/bin:$PATH"
-
-[[ -f "$HOME/.config/shell/.env.local" ]] && . "$HOME/.config/shell/.env.local"
-
-alias ls='eza'
-alias l='eza'
-alias ll='eza -al'
-
-export EDITOR=nvim
-export VISUAL=nvim
-
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-[[ -s "$HOME/.bun/_bun" ]] && . "$HOME/.bun/_bun"
+[[ -f "$HOME/.config/shell/path.sh" ]] && . "$HOME/.config/shell/path.sh"
+[[ -f "$HOME/.config/shell/environment.sh" ]] && . "$HOME/.config/shell/environment.sh"
+[[ -f "$HOME/.config/shell/aliases.sh" ]] && . "$HOME/.config/shell/aliases.sh"
+[[ -f "$HOME/.config/shell/functions.sh" ]] && . "$HOME/.config/shell/functions.sh"
+[[ -f "$HOME/.config/shell/bun.sh" ]] && . "$HOME/.config/shell/bun.sh"
 
 if [[ -x "$HOME/.local/bin/mise" ]]; then
   eval "$("$HOME/.local/bin/mise" activate bash)"
