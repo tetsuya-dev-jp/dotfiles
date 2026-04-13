@@ -3,7 +3,7 @@ set -euo pipefail
 
 # 公式インストーラー取得に curl が必要なので事前確認する。
 if ! command -v curl >/dev/null 2>&1; then
-  printf 'curl is required. Run run_once_install-apt-packages.sh first.\n' >&2
+  printf 'curl is required. Run run_once_10-install-apt-packages.sh first.\n' >&2
   exit 1
 fi
 

@@ -4,6 +4,13 @@ chezmoi + Bitwarden で管理するドットファイル。
 
 ## セットアップ（新マシン）
 
+### リポジトリ構成
+
+- `dot_*` / `dot_config/` - 平文で管理する dotfiles
+- `dot_agents/` - エージェント向け設定・スキル定義
+- `run_once_*.sh` - 初回セットアップ時にだけ走るスクリプト
+- `.chezmoiignore` - 生成物やマシン固有ファイルの除外設定
+
 ### 1. ワンライナーセットアップ
 
 ```bash
@@ -20,6 +27,12 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
   - Bitwarden ログインと secret 復元
   - `gh auth login`
   - SSH 鍵の生成と GitHub への登録
+
+初回セットアップ用スクリプトは、以下の順番で実行されます。
+
+1. `run_once_10-install-apt-packages.sh`
+2. `run_once_20-install-mise.sh`
+3. `run_once_30-setup-personal-machine.sh`
 
 ### 2. Bitwarden アイテムの準備
 
