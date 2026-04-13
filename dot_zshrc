@@ -23,8 +23,9 @@ export PATH="$HOME/.local/bin:$PATH"
 [[ -f ~/.config/shell/.env.local ]] && source ~/.config/shell/.env.local
 
 # Aliases
-alias l='lsd'
-alias ll='lsd -al'
+alias ls='eza'
+alias l='eza'
+alias ll='eza -al'
 alias cc='claude --dangerously-skip-permissions'
 alias codex='codex --dangerously-bypass-approvals-and-sandbox'
 alias vimdiff='nvim -d '
@@ -40,9 +41,6 @@ export OPENCODE_ENABLE_EXA=1
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# Homebrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 
 # mise
 eval "$(~/.local/bin/mise activate zsh)"

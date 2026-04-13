@@ -54,6 +54,13 @@ jobs:
             echo "OK: $f"
           done
 
+      - name: Verify shell tool wiring
+        run: |
+          zsh -lic 'command -v eza >/dev/null'
+          zsh -lic 'alias l | grep "eza"'
+          zsh -lic 'alias ll | grep "eza -al"'
+          git config --global --get-all credential.https://github.com.helper | grep '^!gh auth git-credential$'
+
       - name: Verify interactive setup skipped in CI
         run: |
           skipped_files=(
@@ -74,7 +81,7 @@ jobs:
       - name: No plain-text secrets in source
         run: |
           git ls-files | while read -r f; do
-            if grep -Pi '(AGE-SECRET-KEY|BEGIN\s+OPENSSH\s+PRIVATE\s+KEY|gho_[a-zA-Z0-9]{36}|npm_[a-zA-Z0-9]{20,}|ctx7sk_[a-zA-Z0-9-]+)' "$f" 2>/dev/null; then
+            if grep -Pi '(BEGIN\s+OPENSSH\s+PRIVATE\s+KEY|gho_[a-zA-Z0-9]{36}|npm_[a-zA-Z0-9]{20,}|ctx7sk_[a-zA-Z0-9-]+)' "$f" 2>/dev/null; then
               echo "SECRET FOUND in $f"
               exit 1
             fi

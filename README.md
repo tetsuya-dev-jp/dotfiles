@@ -14,7 +14,7 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 
 - apt パッケージのインストール（zsh, git, curl, jq 等）
 - デフォルトシェルの zsh への変更
-- mise 経由でツール群をインストール（node, bun, starship, gh, bitwarden, delta, nvim 等）
+- mise 経由でツール群をインストール（node, bun, eza, starship, gh, bitwarden, delta, nvim 等）
 - 平文 dotfiles の配置
 - 対話式の初回セットアップ
   - Bitwarden ログインと secret 復元
@@ -60,10 +60,6 @@ chmod 600 ~/.ssh/id_ed25519
 | `.config/mise/config.toml`, `.config/gh/config.yml` | 平文 |
 | `.ssh/id_ed25519`, `.ssh/id_ed25519.pub`, `.config/gh/hosts.yml` | 初回セットアップ時に生成 |
 | `.npmrc`, `.config/shell/.env.local`, `.config/opencode/opencode.jsonc` | Bitwarden から生成 |
-
-## セットアップ後の手動作業
-
-- [ ] Homebrew のインストール（Linux の場合）
 
 ## コマンド
 
