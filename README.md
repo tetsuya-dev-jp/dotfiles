@@ -1,108 +1,111 @@
 # tetsuya.dev dotfiles
 
-chezmoi + Bitwarden で管理するドットファイル。
+WSL 向けの dotfiles。chezmoi + Bitwarden で管理しています。
 
-## セットアップ（新マシン）
-
-### リポジトリ構成
-
-- `dot_*` / `dot_config/` - 平文で管理する dotfiles
-- `dot_agents/` - エージェント向け設定・スキル定義
-- `dot_zshenv` / `dot_zprofile` / `dot_zshrc` - zsh の責務分離された起動設定
-- `dot_config/shell/*.sh` - shell 共通の PATH / env / alias / function 定義
-- `run_once_*.sh` - 初回セットアップ時にだけ走るスクリプト
-- `.chezmoiignore` - 生成物やマシン固有ファイルの除外設定
-
-### 1. ワンライナーセットアップ
+## クイックスタート
 
 ```bash
 sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.com/tetsuya-dev-jp/dotfiles.git
 ```
 
-これで以下が自動で行われます：
+### 前提
 
-- apt パッケージのインストール（zsh, git, curl, jq, wslu 等）
-- デフォルトシェルの zsh への変更
-- mise 経由でツール群をインストール（node, bun, eza, starship, gh, bitwarden, delta, nvim 等）
-- 平文 dotfiles の配置
-- 対話式の初回セットアップ
-  - Bitwarden ログインと secret 復元
-  - `gh auth login`
-  - SSH 鍵の生成と GitHub への登録
+Bitwarden に以下の secure note を作成しておきます。
 
-初回セットアップ用スクリプトは、以下の順番で実行されます。
+| アイテム名 | 内容 |
+|---|---|
+| `dotfiles: ~/.config/shell/.env.local` | 環境変数ファイル（`CONTEXT7_API_KEY` など） |
+| `dotfiles: ~/.npmrc` | npm 設定（レジストリ認証など） |
 
-1. `run_once_10-install-apt-packages.sh`
-2. `run_once_20-install-mise.sh`
-3. `run_onchange_after_25-install-opencode-deps.sh`
-4. `run_once_30-setup-personal-machine.sh`
+note の本文にファイルの中身をそのまま保存してください。
 
-### 2. Bitwarden アイテムの準備
-
-初回セットアップでは、以下の secure note だけを Bitwarden に置いておきます。
-
-- `dotfiles: ~/.config/shell/.env.local`
-- `dotfiles: ~/.npmrc`
-
-各アイテムの note に、そのままファイルの中身を保存します。
-
-Bitwarden と repo の責務は以下です。
-
-- Bitwarden 管理: `~/.config/shell/.env.local`, `~/.npmrc`
-- repo 管理: `~/.config/opencode/opencode.jsonc` などの非 secret 設定
-
-例えば `CONTEXT7_API_KEY` は `opencode.jsonc` には直書きせず、`~/.config/shell/.env.local` に入れます。
+`CONTEXT7_API_KEY` は `opencode.jsonc` には直書きせず、`.env.local` に入れます。
 
 ```bash
 export CONTEXT7_API_KEY="<your-context7-key>"
 ```
 
-`gh auth login` は `wslview` を優先して Windows 側ブラウザを開きます。見つからない場合は URL を表示して手動で続行します。
+### セットアップ中に入力するもの
 
-### 3. 初回セットアップ中に入力するもの
+- sudo パスワード
+- Bitwarden のログイン情報（必要なら MFA）
+- GitHub CLI 認証（`wslview` 経由で Windows 側ブラウザが開きます）
 
-- `sudo` パスワード
-- Bitwarden のログイン情報と必要なら MFA
-- GitHub CLI 認証（WSL から Windows 側ブラウザを利用）
+## インストールされるもの
 
-### 4. 復元・生成される主なファイル
+### apt パッケージ
 
-- `~/.config/shell/.env.local` — Bitwarden から生成
-- `~/.npmrc` — Bitwarden から生成
-- `~/.config/opencode/node_modules/` — `npm ci` で自動生成
-- `~/.ssh/id_ed25519` — 初回セットアップで新規生成
-- `~/.config/gh/hosts.yml` — `gh auth login` で生成
+| パッケージ | 用途 |
+|---|---|
+| zsh | デフォルトシェル |
+| git | バージョン管理 |
+| curl | ダウンロード・API 呼び出し |
+| jq | JSON 処理 |
+| wslu | WSL と Windows の連携（ブラウザ起動等） |
+| xdg-utils | `xdg-open` によるブラウザ・ファイル関連付け |
+| build-essential, cmake, make | C/C++ ビルドツールチェーン |
+| ca-certificates | SSL 証明書 |
+| ffmpeg | 動画・音声処理 |
+| imagemagick | 画像処理 |
+| lsof | ポート調査（`kill-port` で使用） |
+| net-tools | ネットワークユーティリティ |
+| openssh-client | SSH |
+| poppler-utils | PDF 処理 |
+| unzip, 7zip | アーカイブ |
 
-### 5. SSH 鍵のパーミッション設定
+### mise で管理するツール
 
-```bash
-chmod 600 ~/.ssh/id_ed25519
+| ツール | 用途 |
+|---|---|
+| node (LTS) | JavaScript ランタイム |
+| bun | JavaScript ランタイム・パッケージマネージャ |
+| python (3.13) | Python ランタイム |
+| rust | Rust ツールチェーン |
+| uv | Python パッケージ管理 |
+| starship | プロンプト |
+| gh | GitHub CLI |
+| bitwarden | パスワードマネージャー CLI |
+| bat | `cat` 代替 |
+| fd | `find` 代替 |
+| fzf | ファジーファインダー |
+| ripgrep | `grep` 代替 |
+| zoxide | `cd` 代替 |
+| eza | `ls` 代替 |
+| delta | Git diff ビューアー |
+| dust | ディスク使用量ビューアー |
+| zellij | ターミナルマルチプレクサー |
+| neovim | エディタ |
+| opencode | AI コーディングエージェント |
+| btop | システムモニター |
+| gcloud | Google Cloud CLI |
+| yq | YAML/JSON/XML プロセッサー |
+| yazi | ターミナルファイルマネージャー |
+
+### 対話セットアップで生成されるもの
+
+| ファイル | 内容 |
+|---|---|
+| `~/.ssh/id_ed25519` | SSH 鍵（新規生成・GitHub 登録） |
+| `~/.config/gh/hosts.yml` | GitHub CLI 認証情報 |
+| `~/.config/shell/.env.local` | Bitwarden から復元される環境変数 |
+| `~/.npmrc` | Bitwarden から復元される npm 設定 |
+| `~/.config/opencode/node_modules/` | `npm ci` で自動導入されるプラグイン依存 |
+
+## セットアップの流れ
+
+```
+1. apt インストール + zsh をデフォルトシェルに変更
+2. mise インストール + ツール一覧を導入
+3. opencode プラグイン依存を npm ci で導入
+4. 対話セットアップ（Bitwarden 復元 → GitHub 認証 → SSH 鍵生成）
 ```
 
-## 管理している主なファイル
-
-| ファイル | 管理方式 |
-|---|---|
-| `.zshrc`, `.bashrc`, `.gitconfig` | 平文 |
-| `.zshenv`, `.zprofile`, `.config/shell/*.sh` | 平文 |
-| `.agents/` | 平文 |
-| `.config/starship.toml`, `.config/zellij/`, `.config/nvim/`, `.config/opencode/opencode.jsonc`, `.config/opencode/package.json`, `.config/opencode/package-lock.json` | 平文 |
-| `.config/mise/config.toml`, `.config/gh/config.yml` | 平文 |
-| `.ssh/id_ed25519`, `.ssh/id_ed25519.pub`, `.config/gh/hosts.yml` | 初回セットアップ時に生成 |
-| `.npmrc`, `.config/shell/.env.local` | Bitwarden から生成 |
+各ステップは `run_once_10-`, `run_once_20-`, `run_onchange_after_25-`, `run_once_30-` の順で実行されます。
 
 ## コマンド
 
 ```bash
-# 差分確認
-chezmoi diff
-
-# ファイル更新をソースに反映
-chezmoi add ~/.zshrc
-
-# Bitwarden の secret を更新したあとに反映
-chezmoi apply
-
-# ソースの変更をホームに適用
-chezmoi apply
+chezmoi diff       # 差分確認
+chezmoi add ~/.zshrc  # ファイル更新をソースに反映
+chezmoi apply      # ソースの変更をホームに適用
 ```
