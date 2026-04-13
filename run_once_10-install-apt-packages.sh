@@ -18,6 +18,7 @@ packages=(
   poppler-utils
   unzip
   wslu
+  xdg-utils
   zsh
   7zip
 )

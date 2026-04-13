@@ -1,35 +1,36 @@
+{{- $pencilPath := joinPath .chezmoi.homeDir ".pencil/mcp/visual_studio_code/out/mcp-server-linux-x64" -}}
 {
   "$schema": "https://opencode.ai/config.json",
   "agent": {
     "explore": {
       "mode": "subagent",
-      "model": "opencode-go/minimax-m2.7",
+      "model": "opencode-go/minimax-m2.7"
     },
     "general": {
       "mode": "subagent",
-      "model": "opencode-go/minimax-m2.7",
-    },
+      "model": "opencode-go/minimax-m2.7"
+    }
   },
   "mcp": {
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
       "headers": {
-        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}",
-      },
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+      }
     },
     "gh_grep": {
       "type": "remote",
-      "url": "https://mcp.grep.app",
-    },
+      "url": "https://mcp.grep.app"
+    }{{ if stat $pencilPath }},
     "pencil": {
       "command": [
-        "/home/tetsuya/.pencil/mcp/visual_studio_code/out/mcp-server-linux-x64",
+        {{ $pencilPath | quote }},
         "--app",
         "visual_studio_code"
       ],
       "enabled": true,
       "type": "local"
-    }
+    }{{ end }}
   }
 }

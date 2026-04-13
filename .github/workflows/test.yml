@@ -19,7 +19,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            curl git jq openssh-client sudo zsh
+            curl git jq openssh-client sudo zsh xdg-utils
 
       - name: Install chezmoi
         run: |
@@ -49,6 +49,7 @@ jobs:
             "$HOME/.config/opencode/opencode.jsonc"
             "$HOME/.config/opencode/package.json"
             "$HOME/.config/opencode/package-lock.json"
+            "$HOME/.config/opencode/node_modules/@opencode-ai/plugin/package.json"
             "$HOME/.config/starship.toml"
             "$HOME/.config/zellij/config.kdl"
             "$HOME/.config/git/ignore"
@@ -68,6 +69,7 @@ jobs:
           zsh -lic 'command -v eza >/dev/null'
           zsh -lic 'alias l | grep "eza"'
           zsh -lic 'alias ll | grep "eza -al"'
+          zsh -lic 'print -r -- "$BROWSER" | grep -E "^(wslview|xdg-open)$"'
           git config --global --get-all credential.https://github.com.helper | grep '^!gh auth git-credential$'
 
       - name: Verify interactive setup skipped in CI
@@ -89,7 +91,7 @@ jobs:
       - name: No plain-text secrets in source
         run: |
           git ls-files | while read -r f; do
-            if grep -Pi '(BEGIN\s+OPENSSH\s+PRIVATE\s+KEY|gho_[a-zA-Z0-9]{36}|npm_[a-zA-Z0-9]{20,}|ctx7sk_[a-zA-Z0-9-]+)' "$f" 2>/dev/null; then
+            if grep -Pi '(BEGIN\s+OPENSSH\s+PRIVATE\s+KEY|gho_[a-zA-Z0-9]{36}|npm_[a-zA-Z0-9]{20,}|ctx7sk[-_][a-zA-Z0-9-]+)' "$f" 2>/dev/null; then
               echo "SECRET FOUND in $f"
               exit 1
             fi

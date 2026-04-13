@@ -1,0 +1,25 @@
+#!{{ lookPath "bash" }}
+set -euo pipefail
+
+# package.json hash: {{ include "dot_config/opencode/package.json" | sha256sum }}
+# package-lock.json hash: {{ include "dot_config/opencode/package-lock.json" | sha256sum }}
+
+export PATH="${HOME}/.local/bin:${PATH}"
+
+if [[ -x "${HOME}/.local/bin/mise" ]]; then
+  eval "$("${HOME}/.local/bin/mise" activate bash)"
+fi
+
+if ! command -v npm >/dev/null 2>&1; then
+  printf 'npm is required to install opencode plugin dependencies.\n' >&2
+  exit 1
+fi
+
+opencode_dir="${HOME}/.config/opencode"
+
+if [[ ! -f "${opencode_dir}/package.json" ]] || [[ ! -f "${opencode_dir}/package-lock.json" ]]; then
+  printf 'Skipping opencode dependency install because package files are missing.\n'
+  exit 0
+fi
+
+npm ci --prefix "${opencode_dir}" --no-audit --no-fund

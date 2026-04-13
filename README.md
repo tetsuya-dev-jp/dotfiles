@@ -34,7 +34,8 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 
 1. `run_once_10-install-apt-packages.sh`
 2. `run_once_20-install-mise.sh`
-3. `run_once_30-setup-personal-machine.sh`
+3. `run_onchange_after_25-install-opencode-deps.sh`
+4. `run_once_30-setup-personal-machine.sh`
 
 ### 2. Bitwarden アイテムの準備
 
@@ -53,8 +54,10 @@ Bitwarden と repo の責務は以下です。
 例えば `CONTEXT7_API_KEY` は `opencode.jsonc` には直書きせず、`~/.config/shell/.env.local` に入れます。
 
 ```bash
-export CONTEXT7_API_KEY="ctx7sk-..."
+export CONTEXT7_API_KEY="<your-context7-key>"
 ```
+
+`gh auth login` は `wslview` を優先して Windows 側ブラウザを開きます。見つからない場合は URL を表示して手動で続行します。
 
 ### 3. 初回セットアップ中に入力するもの
 
@@ -66,6 +69,7 @@ export CONTEXT7_API_KEY="ctx7sk-..."
 
 - `~/.config/shell/.env.local` — Bitwarden から生成
 - `~/.npmrc` — Bitwarden から生成
+- `~/.config/opencode/node_modules/` — `npm ci` で自動生成
 - `~/.ssh/id_ed25519` — 初回セットアップで新規生成
 - `~/.config/gh/hosts.yml` — `gh auth login` で生成
 
