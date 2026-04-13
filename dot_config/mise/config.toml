@@ -26,6 +26,9 @@ btop = "latest"
 gcloud = "latest"
 yq = "latest"
 yazi = "latest"
+lazygit = "latest"
+claude = "latest"
+codex = "latest"
 
 [settings]
 
