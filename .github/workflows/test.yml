@@ -97,9 +97,9 @@ jobs:
 
       - name: No plain-text secrets in source
         run: |
-          git ls-files | while read -r f; do
+          while IFS= read -r -d '' f; do
             if grep -Pi '(BEGIN\s+OPENSSH\s+PRIVATE\s+KEY|gho_[a-zA-Z0-9]{36}|npm_[a-zA-Z0-9]{20,}|ctx7sk[-_][a-zA-Z0-9-]+)' "$f" 2>/dev/null; then
               echo "SECRET FOUND in $f"
               exit 1
             fi
-          done
+          done < <(find . -type f -not -path './.git/*' -print0)
