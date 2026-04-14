@@ -1,4 +1,4 @@
-# tetsuya.dev dotfiles
+# dotfiles
 
 WSL 向けの dotfiles。chezmoi + Bitwarden で管理しています。
 
@@ -7,29 +7,6 @@ WSL 向けの dotfiles。chezmoi + Bitwarden で管理しています。
 ```bash
 sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.com/tetsuya-dev-jp/dotfiles.git
 ```
-
-### 前提
-
-Bitwarden に以下の secure note を作成しておきます。
-
-| アイテム名 | 内容 |
-|---|---|
-| `dotfiles: ~/.config/shell/.env.local` | 環境変数ファイル（`CONTEXT7_API_KEY` など） |
-| `dotfiles: ~/.npmrc` | npm 設定（レジストリ認証など） |
-
-note の本文にファイルの中身をそのまま保存してください。
-
-`CONTEXT7_API_KEY` は `opencode.jsonc` には直書きせず、`.env.local` に入れます。
-
-```bash
-export CONTEXT7_API_KEY="<your-context7-key>"
-```
-
-### セットアップ中に入力するもの
-
-- sudo パスワード
-- Bitwarden のログイン情報（必要なら MFA）
-- GitHub CLI 認証（`wslview` 経由で Windows 側ブラウザが開きます）
 
 ## インストールされるもの
 
@@ -68,6 +45,7 @@ export CONTEXT7_API_KEY="<your-context7-key>"
 | bat | `cat` 代替 |
 | fd | `find` 代替 |
 | fzf | ファジーファインダー |
+| jq | JSON プロセッサー |
 | ripgrep | `grep` 代替 |
 | zoxide | `cd` 代替 |
 | eza | `ls` 代替 |
@@ -76,10 +54,13 @@ export CONTEXT7_API_KEY="<your-context7-key>"
 | zellij | ターミナルマルチプレクサー |
 | neovim | エディタ |
 | opencode | AI コーディングエージェント |
+| claude | Claude Code CLI |
+| codex | Codex CLI |
 | btop | システムモニター |
 | gcloud | Google Cloud CLI |
 | yq | YAML/JSON/XML プロセッサー |
 | yazi | ターミナルファイルマネージャー |
+| lazygit | Git TUI |
 
 ### 対話セットアップで生成されるもの
 
