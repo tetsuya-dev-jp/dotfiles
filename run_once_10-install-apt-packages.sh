@@ -24,7 +24,7 @@ packages=(
 )
 
 # デフォルトシェルを変更する対象ユーザーを決める。
-target_user="${SUDO_USER:-${USER}}"
+target_user="${SUDO_USER:-${USER:-$(id -un)}}"
 zsh_path="/usr/bin/zsh"
 
 # apt と chsh に sudo が必要なので、使えない場合はここで止める。
