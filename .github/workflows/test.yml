@@ -23,17 +23,16 @@ jobs:
 
       - name: Install chezmoi
         run: |
-          curl -sfL https://get.chezmoi.io | sh
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          curl -sfL https://get.chezmoi.io | CHEZMOI_BIN_DIR=/usr/local/bin sh
 
       - name: Run chezmoi init
         run: |
-          "$HOME/.local/bin/chezmoi" init --source=.
-          "$HOME/.local/bin/chezmoi" verify
+          chezmoi init --source=.
+          chezmoi verify
 
       - name: Run chezmoi apply
         run: |
-          "$HOME/.local/bin/chezmoi" apply --verbose
+          chezmoi apply --verbose
 
       - name: Verify files exist
         run: |

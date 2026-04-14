@@ -153,7 +153,7 @@ setup_github_cli() {
       BROWSER="${browser}" gh auth login --git-protocol https --web
     else
       printf 'No browser launcher was found. The login URL will be printed so you can open it in Windows manually.\n'
-      BROWSER=echo gh auth login --git-protocol https --web
+      BROWSER="echo" gh auth login --git-protocol https --web
     fi
   else
     printf 'Skipped GitHub CLI authentication.\n'
