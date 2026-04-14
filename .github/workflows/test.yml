@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ubuntu:24.04
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - uses: actions/checkout@v4
@@ -30,14 +33,13 @@ jobs:
           tar -xzf /tmp/chezmoi.tar.gz -C /usr/local/bin chezmoi
           rm /tmp/chezmoi.tar.gz
 
-      - name: Run chezmoi init
-        run: |
-          chezmoi init --source=.
-          chezmoi verify
-
       - name: Run chezmoi apply
         run: |
-          chezmoi apply --verbose
+          chezmoi apply --source="$PWD" --destination="$HOME" --force --no-tty --verbose
+
+      - name: Run chezmoi verify
+        run: |
+          chezmoi verify --source="$PWD" --destination="$HOME"
 
       - name: Verify files exist
         run: |
