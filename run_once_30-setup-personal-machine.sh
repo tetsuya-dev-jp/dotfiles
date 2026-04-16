@@ -2,8 +2,8 @@
 set -euo pipefail
 
 readonly BW_SECURE_NOTES=(
-  'dotfiles: ~/.config/shell/.env.local|~/.config/shell/.env.local|600'
-  'dotfiles: ~/.npmrc|~/.npmrc|600'
+  'dotfiles: ~/.config/shell/.env.local|.config/shell/.env.local|600'
+  'dotfiles: ~/.npmrc|.npmrc|600'
 )
 
 if [[ -n "${CI:-}" || ! -t 0 || ! -t 1 ]]; then
@@ -112,7 +112,7 @@ materialize_bitwarden_secure_notes() {
 
   for note_spec in "${BW_SECURE_NOTES[@]}"; do
     IFS='|' read -r item_name destination mode <<< "${note_spec}"
-    materialize_bitwarden_note "${item_name}" "${HOME}/${destination#~/}" "${mode}"
+    materialize_bitwarden_note "${item_name}" "${HOME}/${destination}" "${mode}"
   done
 }
 
