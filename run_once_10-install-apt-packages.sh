@@ -7,6 +7,8 @@ packages=(
   ca-certificates
   cmake
   curl
+  docker.io
+  docker-compose-v2
   ffmpeg
   git
   imagemagick
