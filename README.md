@@ -28,6 +28,8 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 | net-tools | ネットワークユーティリティ |
 | openssh-client | SSH |
 | poppler-utils | PDF 処理 |
+| docker.io | Docker エンジン |
+| docker-compose-v2 | Docker Compose プラグイン |
 | unzip, 7zip | アーカイブ |
 
 ### mise で管理するツール
@@ -47,7 +49,6 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 | fzf | ファジーファインダー |
 | jq | JSON プロセッサー |
 | ripgrep | `grep` 代替 |
-| zoxide | `cd` 代替 |
 | eza | `ls` 代替 |
 | delta | Git diff ビューアー |
 | dust | ディスク使用量ビューアー |
@@ -56,7 +57,6 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 | opencode | AI コーディングエージェント |
 | claude | Claude Code CLI |
 | codex | Codex CLI |
-| btop | システムモニター |
 | gcloud | Google Cloud CLI |
 | yq | YAML/JSON/XML プロセッサー |
 | yazi | ターミナルファイルマネージャー |
