@@ -1,6 +1,6 @@
 # dotfiles
 
-WSL 向けの dotfiles。chezmoi + Bitwarden で管理しています。
+WSL 向けの dotfiles。chezmoi で管理しています。
 
 ## クイックスタート
 
@@ -43,7 +43,6 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 | uv | Python パッケージ管理 |
 | starship | プロンプト |
 | gh | GitHub CLI |
-| bitwarden | パスワードマネージャー CLI |
 | bat | `cat` 代替 |
 | fd | `find` 代替 |
 | fzf | ファジーファインダー |
@@ -68,8 +67,6 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 |---|---|
 | `~/.ssh/id_ed25519` | SSH 鍵（新規生成・GitHub 登録） |
 | `~/.config/gh/hosts.yml` | GitHub CLI 認証情報 |
-| `~/.config/shell/.env.local` | Bitwarden から復元される環境変数 |
-| `~/.npmrc` | Bitwarden から復元される npm 設定 |
 | `~/.config/opencode/node_modules/` | `npm ci` で自動導入されるプラグイン依存 |
 
 ## セットアップの流れ
@@ -78,7 +75,7 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 1. apt インストール + zsh をデフォルトシェルに変更
 2. mise インストール + ツール一覧を導入
 3. opencode プラグイン依存を npm ci で導入
-4. 対話セットアップ（Bitwarden 復元 → GitHub 認証 → SSH 鍵生成）
+4. 対話セットアップ（GitHub 認証 → SSH 鍵生成）
 ```
 
 各ステップは `run_once_10-`, `run_once_20-`, `run_onchange_after_25-`, `run_once_30-` の順で実行されます。
