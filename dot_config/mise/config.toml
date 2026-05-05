@@ -28,6 +28,7 @@ claude = "latest"
 codex = "latest"
 
 [settings]
+github_attestations = false
 
 [settings.npm]
 package_manager = "bun"
