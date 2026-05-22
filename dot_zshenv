@@ -1,2 +1,28 @@
-[[ -f "$HOME/.config/shell/path.sh" ]] && source "$HOME/.config/shell/path.sh"
-[[ -f "$HOME/.config/shell/environment.sh" ]] && source "$HOME/.config/shell/environment.sh"
+# PATH
+path_prepend() {
+  case ":${PATH}:" in
+    *":$1:"*) ;;
+    *) PATH="$1${PATH:+:${PATH}}" ;;
+  esac
+}
+
+export BUN_INSTALL="$HOME/.bun"
+path_prepend "$HOME/.opencode/bin"
+path_prepend "$BUN_INSTALL/bin"
+path_prepend "$HOME/.local/bin"
+export PATH
+
+# Environment
+export EDITOR=nvim
+export VISUAL=nvim
+
+export OPENCODE_DISABLE_CLAUDE_CODE=1
+export OPENCODE_ENABLE_EXA=1
+
+if command -v wslview >/dev/null 2>&1; then
+  export BROWSER=wslview
+elif command -v xdg-open >/dev/null 2>&1; then
+  export BROWSER=xdg-open
+fi
+
+[[ -f "$HOME/.zshenv.local" ]] && source "$HOME/.zshenv.local"

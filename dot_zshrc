@@ -12,10 +12,37 @@ compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-[[ -f "$HOME/.config/shell/aliases.sh" ]] && source "$HOME/.config/shell/aliases.sh"
-[[ -f "$HOME/.config/shell/functions.sh" ]] && source "$HOME/.config/shell/functions.sh"
-[[ -f "$HOME/.config/shell/bun.sh" ]] && source "$HOME/.config/shell/bun.sh"
+# Aliases
+alias ls='eza'
+alias l='eza'
+alias ll='eza -al'
+alias cc='claude --dangerously-skip-permissions'
+alias codex='codex --dangerously-bypass-approvals-and-sandbox'
+alias vimdiff='nvim -d '
+alias oc='opencode'
 
+# Functions
+kill-port() {
+  if [ -z "$1" ]; then
+    echo "Usage: kill-port <port>"
+    return 1
+  fi
+
+  local pid
+  pid=$(lsof -i :"$1" -t 2>/dev/null)
+
+  if [ -z "$pid" ]; then
+    echo "No process found on port $1"
+    return 1
+  fi
+
+  kill -9 "$pid" && echo "Killed process $pid on port $1"
+}
+
+# Bun completions
+[[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
+
+# Tools
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"

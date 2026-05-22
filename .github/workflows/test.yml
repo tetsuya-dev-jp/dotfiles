@@ -49,10 +49,7 @@ jobs:
             "$HOME/.zprofile"
             "$HOME/.gitconfig"
             "$HOME/.agents/AGENTS.md"
-            "$HOME/.config/shell/path.sh"
-            "$HOME/.config/shell/environment.sh"
-            "$HOME/.config/shell/aliases.sh"
-            "$HOME/.config/shell/functions.sh"
+
             "$HOME/.config/opencode/opencode.jsonc"
             "$HOME/.config/opencode/package.json"
             "$HOME/.config/opencode/package-lock.json"
