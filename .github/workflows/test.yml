@@ -57,7 +57,6 @@ jobs:
             "$HOME/.config/starship.toml"
             "$HOME/.config/zellij/config.kdl"
             "$HOME/.config/git/ignore"
-            "$HOME/.config/gh/config.yml"
             "$HOME/.config/mise/config.toml"
           )
           for f in "${files[@]}"; do

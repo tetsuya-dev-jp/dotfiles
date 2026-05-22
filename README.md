@@ -52,7 +52,6 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 | delta | Git diff ビューアー |
 | dust | ディスク使用量ビューアー |
 | zellij | ターミナルマルチプレクサー |
-| neovim | エディタ |
 | opencode | AI コーディングエージェント |
 | claude | Claude Code CLI |
 | codex | Codex CLI |
