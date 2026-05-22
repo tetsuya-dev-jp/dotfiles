@@ -1,8 +1,8 @@
 # Interactive behavior
 setopt histignorealldups sharehistory
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zsh_history
 
 bindkey -e
 
@@ -16,6 +16,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 [[ -f "$HOME/.config/shell/functions.sh" ]] && source "$HOME/.config/shell/functions.sh"
 [[ -f "$HOME/.config/shell/bun.sh" ]] && source "$HOME/.config/shell/bun.sh"
 
+eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 

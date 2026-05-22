@@ -27,7 +27,7 @@ jobs:
       - name: Install chezmoi
         run: |
           arch="$(dpkg --print-architecture)"
-          chezmoi_version="2.62.3"
+          chezmoi_version="2.70.2"
           curl -fsSLo /tmp/chezmoi.tar.gz \
             "https://github.com/twpayne/chezmoi/releases/download/v${chezmoi_version}/chezmoi_${chezmoi_version}_linux_${arch}.tar.gz"
           tar -xzf /tmp/chezmoi.tar.gz -C /usr/local/bin chezmoi
