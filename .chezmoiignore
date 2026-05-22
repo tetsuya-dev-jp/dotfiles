@@ -20,9 +20,11 @@
 # 機密・ローカル状態
 .gnupg/
 
-# SSH - known_hostsは管理外
-.ssh/known_hosts
-.ssh/known_hosts.old
+# SSH - 全体を管理外（秘密鍵の誤コミット防止）
+.ssh/
+
+# ローカルオーバーライド（API鍵等を置く可能性あり）
+.zshenv.local
 
 # シェル履歴・一時ファイル
 .zsh_history
