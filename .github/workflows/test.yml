@@ -79,7 +79,6 @@ jobs:
       - name: Verify interactive setup skipped in CI
         run: |
           skipped_files=(
-            "$HOME/.ssh/id_ed25519"
             "$HOME/.config/gh/hosts.yml"
           )
           for f in "${skipped_files[@]}"; do

@@ -75,38 +75,6 @@ setup_github_cli() {
   fi
 }
 
-setup_ssh_key() {
-  local key_path="${HOME}/.ssh/id_ed25519"
-  local key_title
-
-  if [[ -f "${key_path}" ]]; then
-    printf 'SSH key already exists at %s\n' "${key_path}"
-    return
-  fi
-
-  if ! prompt_yes_no 'Create a new SSH key for this machine?' 'Y'; then
-    printf 'Skipped SSH key generation.\n'
-    return
-  fi
-
-  mkdir -p "${HOME}/.ssh"
-  chmod 700 "${HOME}/.ssh"
-  ssh-keygen -t ed25519 -C "${USER}@$(hostname)" -f "${key_path}" -N ''
-
-  if ! gh auth status >/dev/null 2>&1; then
-    printf 'GitHub CLI is not authenticated, so SSH key upload was skipped.\n'
-    return
-  fi
-
-  if prompt_yes_no 'Upload the new SSH public key to GitHub now?' 'Y'; then
-    key_title="$(hostname)-wsl-$(date +%Y%m%d)"
-    gh ssh-key add "${key_path}.pub" --title "${key_title}"
-  else
-    printf 'Skipped GitHub SSH key upload.\n'
-  fi
-}
-
 setup_github_cli
-setup_ssh_key
 
 printf 'Interactive personal setup completed. Start a new shell to load fresh environment variables.\n'
