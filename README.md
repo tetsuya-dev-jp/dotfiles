@@ -45,26 +45,18 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 | gh | GitHub CLI |
 | bat | `cat` 代替 |
 | fd | `find` 代替 |
-| fzf | ファジーファインダー |
 | jq | JSON プロセッサー |
 | ripgrep | `grep` 代替 |
 | eza | `ls` 代替 |
-| delta | Git diff ビューアー |
-| dust | ディスク使用量ビューアー |
-| zellij | ターミナルマルチプレクサー |
 | opencode | AI コーディングエージェント |
 | claude | Claude Code CLI |
 | codex | Codex CLI |
-| gcloud | Google Cloud CLI |
 | yq | YAML/JSON/XML プロセッサー |
-| yazi | ターミナルファイルマネージャー |
-| lazygit | Git TUI |
 
 ### 対話セットアップで生成されるもの
 
 | ファイル | 内容 |
 |---|---|
-| `~/.ssh/id_ed25519` | SSH 鍵（新規生成・GitHub 登録） |
 | `~/.config/gh/hosts.yml` | GitHub CLI 認証情報 |
 | `~/.config/opencode/node_modules/` | `npm ci` で自動導入されるプラグイン依存 |
 
@@ -74,7 +66,7 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 1. apt インストール + zsh をデフォルトシェルに変更
 2. mise インストール + ツール一覧を導入
 3. opencode プラグイン依存を npm ci で導入
-4. 対話セットアップ（GitHub 認証 → SSH 鍵生成）
+4. 対話セットアップ（GitHub 認証）
 ```
 
 各ステップは `run_once_10-`, `run_once_20-`, `run_onchange_after_25-`, `run_once_30-` の順で実行されます。
