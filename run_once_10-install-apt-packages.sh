@@ -12,7 +12,6 @@ packages=(
   ffmpeg
   git
   imagemagick
-  jq
   lsof
   make
   net-tools

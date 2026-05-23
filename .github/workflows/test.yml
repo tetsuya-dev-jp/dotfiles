@@ -52,10 +52,8 @@ jobs:
 
             "$HOME/.config/opencode/opencode.jsonc"
             "$HOME/.config/opencode/package.json"
-            "$HOME/.config/opencode/package-lock.json"
             "$HOME/.config/opencode/node_modules/@opencode-ai/plugin/package.json"
             "$HOME/.config/starship.toml"
-            "$HOME/.config/git/ignore"
             "$HOME/.config/mise/config.toml"
           )
           for f in "${files[@]}"; do

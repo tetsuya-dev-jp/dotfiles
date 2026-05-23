@@ -17,7 +17,6 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 | zsh | デフォルトシェル |
 | git | バージョン管理 |
 | curl | ダウンロード・API 呼び出し |
-| jq | JSON 処理 |
 | wslu | WSL と Windows の連携（ブラウザ起動等） |
 | xdg-utils | `xdg-open` によるブラウザ・ファイル関連付け |
 | build-essential, cmake, make | C/C++ ビルドツールチェーン |
