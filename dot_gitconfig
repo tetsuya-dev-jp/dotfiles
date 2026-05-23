@@ -10,6 +10,6 @@
 [init]
 	defaultBranch = main
 [core]
-	editor = nvim
+	editor = vim
 [merge]
 	conflictstyle = diff3

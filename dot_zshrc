@@ -18,7 +18,7 @@ alias l='eza'
 alias ll='eza -al'
 alias cc='claude'
 alias codex='codex'
-alias vimdiff='nvim -d '
+alias vimdiff='vimdiff'
 alias oc='opencode'
 
 # Functions

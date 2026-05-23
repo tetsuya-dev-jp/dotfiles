@@ -13,8 +13,8 @@ path_prepend "$HOME/.local/bin"
 export PATH
 
 # Environment
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR=vim
+export VISUAL=vim
 
 export OPENCODE_DISABLE_CLAUDE_CODE=1
 export OPENCODE_ENABLE_EXA=1
