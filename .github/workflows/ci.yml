@@ -67,6 +67,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Pass GitHub token for mise
+        run: echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> "$GITHUB_ENV"
+
       - name: Install prerequisites
         run: |
           apt-get update
