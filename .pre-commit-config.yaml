@@ -1,0 +1,41 @@
+repos:
+  # shell script lint & format
+  - repo: local
+    hooks:
+      - id: shfmt
+        name: shfmt
+        entry: mise exec shfmt -- shfmt -i 2 -ci -w
+        language: system
+        types: [shell]
+        files: ^(run_|dot_zsh)
+
+      - id: shellcheck
+        name: shellcheck
+        entry: mise exec shellcheck -- shellcheck --severity=warning
+        language: system
+        types: [shell]
+        files: ^(run_|dot_zsh)
+
+  # GitHub Actions lint
+  - repo: local
+    hooks:
+      - id: actionlint
+        name: actionlint
+        entry: mise exec actionlint -- actionlint
+        language: system
+        files: ^\.github/workflows/
+
+  # Markdown lint
+  - repo: local
+    hooks:
+      - id: markdownlint
+        name: markdownlint
+        entry: mise exec markdownlint-cli2 -- markdownlint-cli2
+        language: system
+        types: [markdown]
+
+  # Prevent secrets
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: detect-private-key

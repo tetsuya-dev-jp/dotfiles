@@ -19,6 +19,13 @@ yq = "latest"
 claude = "latest"
 codex = "latest"
 
+# lint & format
+shellcheck = "latest"
+shfmt = "latest"
+actionlint = "latest"
+markdownlint-cli2 = "latest"
+pre-commit = "latest"
+
 [settings]
 github_attestations = false
 
