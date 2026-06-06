@@ -77,7 +77,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            ca-certificates curl git jq openssh-client sudo zsh xdg-utils
+            ca-certificates curl git jq openssh-client python3 sudo zsh xdg-utils
 
       - name: Install chezmoi
         run: |
