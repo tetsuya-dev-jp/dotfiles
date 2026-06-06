@@ -18,6 +18,7 @@ opencode = "latest"
 yq = "latest"
 claude = "latest"
 codex = "latest"
+pi = "latest"
 
 # lint & format
 shellcheck = "latest"
