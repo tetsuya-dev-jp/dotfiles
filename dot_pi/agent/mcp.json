@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "context-mode": {
+      "command": "context-mode"
+    },
+    "consensus": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.consensus.app/mcp"
+      ]
+    }
+  }
+}
