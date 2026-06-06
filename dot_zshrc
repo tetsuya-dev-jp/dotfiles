@@ -12,14 +12,32 @@ compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+# Runtime manager
+if [[ -z "${MISE_SHELL:-}" ]]; then
+  if [[ -x "$HOME/.local/bin/mise" ]]; then
+    eval "$("$HOME/.local/bin/mise" activate zsh)"
+  elif command -v mise >/dev/null 2>&1; then
+    eval "$(mise activate zsh)"
+  fi
+fi
+
 # Aliases
-alias ls='eza'
-alias l='eza'
-alias ll='eza -al'
-alias cc='claude'
-alias codex='codex'
-alias vimdiff='vimdiff'
-alias oc='opencode'
+if (( $+commands[eza] )); then
+  alias ls='eza'
+  alias l='eza'
+  alias ll='eza -al'
+else
+  alias l='ls'
+  alias ll='ls -al'
+fi
+
+if (( $+commands[claude] )); then
+  alias cc='claude'
+fi
+
+if (( $+commands[opencode] )); then
+  alias oc='opencode'
+fi
 
 # Functions
 kill-port() {
@@ -43,8 +61,10 @@ kill-port() {
 [[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
 # Tools
-eval "$(starship init zsh)"
+if (( $+commands[starship] )); then
+  eval "$(starship init zsh)"
+fi
 
-if command -v uv >/dev/null 2>&1; then
+if (( $+commands[uv] )); then
   eval "$(uv generate-shell-completion zsh)"
 fi

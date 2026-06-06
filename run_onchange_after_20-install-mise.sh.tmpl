@@ -1,0 +1,27 @@
+#!{{ lookPath "bash" }}
+set -euo pipefail
+
+# mise config hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
+{{- if stat (joinPath .chezmoi.sourceDir "dot_config/mise/mise.lock") }}
+# mise lock hash: {{ include "dot_config/mise/mise.lock" | sha256sum }}
+{{- end }}
+
+if ! command -v curl >/dev/null 2>&1; then
+  printf '%s\n' \
+    'curl is required. Run run_once_10-install-apt-packages.sh first.' >&2
+  exit 1
+fi
+
+if [[ ! -x "${HOME}/.local/bin/mise" ]] \
+  && ! command -v mise >/dev/null 2>&1; then
+  curl -fsSL https://mise.run | sh
+fi
+
+export PATH="${HOME}/.local/bin:${PATH}"
+
+if ! command -v mise >/dev/null 2>&1; then
+  printf 'mise installation completed but the binary is not on PATH yet.\n' >&2
+  exit 1
+fi
+
+mise install

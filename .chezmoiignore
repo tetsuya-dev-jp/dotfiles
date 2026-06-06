@@ -1,5 +1,7 @@
+# OpenCode local configuration/state is intentionally unmanaged
+.config/opencode/
+
 # キャッシュ・実行時依存
-.config/opencode/node_modules/
 .cache/
 .cargo/
 .rustup/
@@ -17,8 +19,34 @@
 .mozilla/
 .vscode-server/
 
+# GitHub CLI auth/state
+.config/gh/hosts.yml
+.local/state/gh/
+
+# chezmoi local state
+.config/chezmoi/chezmoistate.boltdb
+
 # 機密・ローカル状態
 .gnupg/
+
+# Package manager credentials
+.npmrc
+.pypirc
+.netrc
+.config/pip/pip.conf
+.config/pypoetry/auth.toml
+
+# Cloud / infra credentials and local state
+.aws/
+.azure/
+.config/gcloud/
+.kube/
+.docker/config.json
+.config/containers/
+
+# Local keyrings / password stores
+.local/share/keyrings/
+.password-store/
 
 # SSH - 全体を管理外（秘密鍵の誤コミット防止）
 .ssh/
