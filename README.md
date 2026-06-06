@@ -4,8 +4,15 @@ WSL 向けの dotfiles。chezmoi で管理しています。
 
 ## クイックスタート
 
+このセットアップは chezmoi の run scripts により、apt パッケージのインストール、zsh への shell 変更、
+mise によるツール導入、GitHub CLI 認証確認を行います。
+
+事前に差分を確認する場合は、以下を使ってください。
+
 ```bash
-sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.com/tetsuya-dev-jp/dotfiles.git
+chezmoi init https://github.com/tetsuya-dev-jp/dotfiles.git
+chezmoi diff
+chezmoi apply
 ```
 
 ## インストールされるもの
@@ -57,18 +64,17 @@ sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.c
 | ファイル | 内容 |
 |---|---|
 | `~/.config/gh/hosts.yml` | GitHub CLI 認証情報 |
-| `~/.config/opencode/node_modules/` | `npm ci` で自動導入されるプラグイン依存 |
 
 ## セットアップの流れ
 
 ```
 1. apt インストール + zsh をデフォルトシェルに変更
-2. mise インストール + ツール一覧を導入
-3. opencode プラグイン依存を npm ci で導入
-4. 対話セットアップ（GitHub 認証）
+2. mise インストール + ツール一覧を導入（設定変更で再実行される）
+3. 対話セットアップ（GitHub 認証）
 ```
 
-各ステップは `run_once_10-`, `run_once_20-`, `run_onchange_after_25-`, `run_once_30-` の順で実行されます。
+各ステップは `run_once_10-`、`run_onchange_after_20-`、`run_once_30-` の順で実行されます。
+`mise` の設定ファイル（`config.toml` / `mise.lock`）を変更すると `run_onchange_after_20-` が再実行されます。
 
 ## コマンド
 
