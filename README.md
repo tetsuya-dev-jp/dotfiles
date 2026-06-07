@@ -79,7 +79,7 @@ chezmoi apply
 3. 対話セットアップ（GitHub 認証）
 ```
 
-各ステップは `run_once_10-`、`run_onchange_after_20-`、`run_once_30-` の順で実行されます。
+各ステップは `run_once_10-`、`run_onchange_after_20-`、`run_once_after_30-` の順で実行されます。
 `mise` の設定ファイル（`config.toml` / `mise.lock`）を変更すると `run_onchange_after_20-` が再実行されます。
 
 ## コマンド
