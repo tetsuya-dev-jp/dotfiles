@@ -11,13 +11,6 @@ if [[ -x "${HOME}/.local/bin/mise" ]]; then
   eval "$("${HOME}/.local/bin/mise" activate bash)"
 fi
 
-require_command() {
-  if ! command -v "$1" >/dev/null 2>&1; then
-    printf '%s is required but was not found on PATH.\n' "$1" >&2
-    exit 1
-  fi
-}
-
 preferred_browser() {
   if command -v wslview >/dev/null 2>&1; then
     printf 'wslview\n'
@@ -56,7 +49,11 @@ prompt_yes_no() {
 setup_github_cli() {
   local browser
 
-  require_command gh
+  if ! command -v gh >/dev/null 2>&1; then
+    printf 'Skipping GitHub CLI authentication because gh was not found on PATH.\n' >&2
+    printf 'Install tools with mise, then run `gh auth login` manually if needed.\n' >&2
+    return
+  fi
 
   if gh auth status >/dev/null 2>&1; then
     printf 'GitHub CLI is already authenticated.\n'
