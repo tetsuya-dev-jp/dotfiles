@@ -7,6 +7,12 @@ WSL 向けの dotfiles。chezmoi で管理しています。
 このセットアップは chezmoi の run scripts により、apt パッケージのインストール、zsh への shell 変更、
 mise によるツール導入、GitHub CLI 認証確認を行います。
 
+すべてまとめて入れる場合は、以下のワンライナーを実行してください。
+
+```bash
+sh -c "$(curl -fsSL https://get.chezmoi.io/lb)" -- init --apply https://github.com/tetsuya-dev-jp/dotfiles.git
+```
+
 事前に差分を確認する場合は、以下を使ってください。
 
 ```bash
