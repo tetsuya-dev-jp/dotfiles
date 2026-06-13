@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.78.0",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.5",
-  "defaultThinkingLevel": "medium",
+  "lastChangelogVersion": "0.79.3",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "kimi-k2.7-code",
+  "defaultThinkingLevel": "high",
   "terminal": {
     "showTerminalProgress": true
   },
@@ -12,7 +12,8 @@
     "npm:context-mode",
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:pi-mcp-adapter",
-    "npm:pi-subagents"
+    "npm:pi-subagents",
+    "npm:pi-intercom"
   ],
   "hideThinkingBlock": false
 }

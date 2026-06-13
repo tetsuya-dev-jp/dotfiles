@@ -26,6 +26,7 @@ shfmt = "latest"
 actionlint = "latest"
 markdownlint-cli2 = "latest"
 pre-commit = "latest"
+neovim = "latest"
 
 [settings]
 github_attestations = false
