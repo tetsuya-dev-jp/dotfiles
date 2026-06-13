@@ -19,6 +19,15 @@
       "skillFolderHash": "869c0e5d643f5da833d28bf082961645fccb4e1eab98bf4699556b97449fa80e",
       "installedAt": "2026-06-07T00:00:00.000Z",
       "updatedAt": "2026-06-07T00:00:00.000Z"
+    },
+    "improve": {
+      "source": "shadcn/improve",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/shadcn/improve.git",
+      "skillPath": "skills/improve/SKILL.md",
+      "skillFolderHash": "a9977b8771077a3bd6985d24450dffcc96206d2d",
+      "installedAt": "2026-06-13T14:15:29.085Z",
+      "updatedAt": "2026-06-13T14:15:29.085Z"
     }
   },
   "dismissed": {
@@ -27,15 +36,16 @@
   "lastSelectedAgents": [
     "amp",
     "antigravity",
+    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
     "deepagents",
-    "firebender",
     "gemini-cli",
     "github-copilot",
-    "kimi-cli",
+    "kimi-code-cli",
     "opencode",
-    "warp"
+    "warp",
+    "zed"
   ]
 }
