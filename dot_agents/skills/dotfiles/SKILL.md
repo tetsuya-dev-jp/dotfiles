@@ -73,7 +73,7 @@ main は保護されているため、ローカルの main には直接コミッ
 
 1. コミット前に、変更内容に合わせてソースリポジトリの `README.md` を更新する（インストールされるツール一覧、管理対象ファイルの説明など、変更のあった箇所。実ファイルと突き合わせて古い記述を直す）。
 2. `git -C ~/.local/share/chezmoi fetch origin` で最新を取得する。
-3. 事前確認（preflight）: ローカルが main にいてツリーがクリーンであること、`~/.local/bin/mise exec gh -- gh pr list --head chore/sync-dotfiles-*` が空であること、残存する `chore/sync-dotfiles-*` ブランチがないことを確認する。残存ブランチや PR があれば再利用するか削除してから進む。
+3. 事前確認（preflight）: ローカルが main にいること、ツリーに同期対象以外の意図しない変更がないこと（あれば調査・復元してから進む）、`~/.local/bin/mise exec gh -- gh pr list --state open --json headRefName --jq '.[].headRefName | select(startswith("chore/sync-dotfiles-"))'` が空であること、残存する `chore/sync-dotfiles-*` ブランチがないことを確認する。残存ブランチや PR があれば再利用するか削除してから進む。
 4. `git -C ~/.local/share/chezmoi switch -c chore/sync-dotfiles-<日時> origin/main` で origin/main から feature ブランチを切る。
 5. `git -C ~/.local/share/chezmoi status --porcelain` でコミット対象のファイル群を確認してから、`git -C ~/.local/share/chezmoi add -A` し、`commit -m "chore: sync dotfiles (M:n A:n D:n)"` のように実際に反映した件数をメッセージに含めてコミットする。
 6. `~/.local/bin/mise exec gh -- git push -u origin HEAD` で push する（credential helper の `!gh` を確実に解決するため、mise exec gh 経由で実行する。gh が PATH にない環境でも動く）。
@@ -91,7 +91,7 @@ PR 作成後、以下をレビューが通り CI が成功するまで繰り返�
 3. `~/.local/bin/mise exec gh -- gh pr checks <PR番号> --watch` で CI の完了を待つ。失敗した場合、`~/.local/bin/mise exec gh -- gh run view <失敗したrun-id> --log-failed` で失敗ログを確認し、原因を修正してコミット → push し、再び待つ。
 4. レビューが通り、CI が成功した時点で PR の作成は完了と判断し、その旨をユーザーに報告する。CI 失敗の原因判定の前に、origin/main の CI が既に失敗していないか確認する（main 起因の失敗を PR のせいにしない）。
 
-このリポジトリの CI（`.github/workflows/ci.yml`）の主な失敗原因: skill-lock 不一致（`dot_agents/dot_skill-lock.json` の skills キーと実ディレクトリが一致しない。新規スキル追加時に発生しうる。修正は不足ディレクトリ名のエントリを lock の skills に追加する。チェックはキー名の一致のみを見るため最小エントリで通る）、markdownlint（全 `.md` が対象）、shellcheck / shfmt（`run_*.sh`）、秘密スキャン（OpenSSH 秘密鍵のヘッダ行、`gho_`, `npm_` 等のパターン）。秘密スキャンで落ちた場合は、該当ファイルをブランチから除去し、`git push --force-with-lease` でブランチ履歴からも消してから再 push し、ユーザーにクレデンシャルのローテーションを促す。
+このリポジトリの CI（`.github/workflows/ci.yml`）の主な失敗原因: skill-lock 不一致（`dot_agents/dot_skill-lock.json` の skills キーと実ディレクトリが一致しない。新規スキル追加時に発生しうる。修正は不足ディレクトリ名のエントリを lock の skills に追加する。チェックはキー名の一致のみを見るため最小エントリで通る）、markdownlint（`.md` が対象。`dot_agents/` は `.markdownlint-cli2.jsonc` の ignores で除外済み）、shellcheck / shfmt（`run_*.sh`）、秘密スキャン（OpenSSH 秘密鍵のヘッダ行、`gho_`, `npm_` 等のパターン）。秘密スキャンで落ちた場合は、該当ファイルをブランチから除去し、`git push --force-with-lease` でブランチ履歴からも消してから再 push し、ユーザーにクレデンシャルのローテーションを促す。
 
 **完了条件**: レビューが通り、全チェックが成功し、その旨をユーザーに報告している。
 

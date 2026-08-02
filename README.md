@@ -74,7 +74,7 @@ chezmoi apply
 | pre-commit | git フック管理 |
 | herdr | AI コーディングエージェント向けターミナルワークスペース管理 |
 | hunk | エージェント生成の変更セット向けターミナル diff ビューア |
-| oh-my-pi | プロンプトテーマ（oh-my-posh 互換の omp） |
+| oh-my-pi | AI コーディングエージェント（pi 系 CLI） |
 
 ### 対話セットアップで生成されるもの
 
