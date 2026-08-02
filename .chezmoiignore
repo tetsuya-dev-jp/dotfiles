@@ -60,3 +60,5 @@
 .zcompdump-*
 .lesshst
 .sudo_as_admin_successful
+# README はリポジトリ専有（ホームへ配置しない）
+README.md

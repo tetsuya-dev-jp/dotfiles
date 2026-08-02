@@ -1,0 +1,9 @@
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-alt-b": ["task::Spawn", { "task_name": "LaTeX: build" }],
+      "ctrl-alt-w": ["task::Spawn", { "task_name": "LaTeX: watch and preview" }]
+    }
+  }
+]
