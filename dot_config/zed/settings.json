@@ -1,0 +1,19 @@
+"lsp": {
+  "texlab": {
+    "settings": {
+      "texlab": {
+        "latexindent": {
+          "modifyLineBreaks": true
+        },
+        "build": {
+          "onSave": true,
+          "executable": "latexmk",
+          "args": [
+            "-f",
+            "-pdflua"
+          ]
+        }
+      }
+    }
+  }
+}

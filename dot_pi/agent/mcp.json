@@ -1,14 +1,10 @@
 {
   "mcpServers": {
-    "context-mode": {
-      "command": "context-mode"
-    },
-    "consensus": {
+    "raindrop": {
       "command": "npx",
       "args": [
         "-y",
-        "mcp-remote@latest",
-        "https://mcp.consensus.app/mcp"
+        "@briansunter/raindrop-mcp"
       ]
     }
   }

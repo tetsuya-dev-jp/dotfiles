@@ -1,19 +1,27 @@
 {
-  "lastChangelogVersion": "0.79.3",
+  "lastChangelogVersion": "0.83.0",
+  "theme": "dark",
   "defaultProvider": "opencode-go",
-  "defaultModel": "kimi-k2.7-code",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "deepseek-v4-flash",
+  "defaultThinkingLevel": "max",
+  "packages": [
+    "npm:pi-mcp-adapter",
+    "npm:pi-subagents",
+    "npm:pi-web-access",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:context-mode",
+    "npm:@dietrichgebert/ponytail",
+    "npm:@upstash/context7-pi",
+    "npm:@plannotator/pi-extension"
+  ],
   "terminal": {
     "showTerminalProgress": true
   },
-  "theme": "dark",
-  "packages": [
-    "npm:pi-web-access",
-    "npm:context-mode",
-    "npm:@juicesharp/rpiv-ask-user-question",
-    "npm:pi-mcp-adapter",
-    "npm:pi-subagents",
-    "npm:pi-intercom"
-  ],
-  "hideThinkingBlock": false
+  "hideThinkingBlock": true,
+  "showCacheMissNotices": true,
+  "collapseChangelog": true,
+  "quietStartup": true,
+  "defaultProjectTrust": "always",
+  "treeFilterMode": "user-only"
 }

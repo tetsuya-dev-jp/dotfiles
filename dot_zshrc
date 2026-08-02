@@ -39,6 +39,10 @@ if (( $+commands[opencode] )); then
   alias oc='opencode'
 fi
 
+if (( $+commands[omp] )); then
+  alias omp='omp --allow-home'
+fi
+
 # Functions
 kill-port() {
   if [ -z "$1" ]; then
