@@ -82,7 +82,7 @@ main は保護されているため、ローカルの main には直接コミッ
 2. 失敗した場合、`~/.local/bin/mise exec gh -- gh run view <失敗したrun-id> --log-failed` で失敗ログを確認し、原因を修正してブランチにコミット → push し、再び `gh pr checks` で待つ。成功するまで繰り返す。
 3. 全チェック成功をユーザーに報告して終了する。
 
-このリポジトリの CI（`.github/workflows/ci.yml`）の主な失敗原因: skill-lock 不一致（`dot_agents/dot_skill-lock.json` の skills キーと実ディレクトリが一致しない。新規スキル追加時に発生しうる。修正は不足ディレクトリ名のエントリを lock の skills に追加する。チェックはキー名の一致のみを見るため最小エントリで通る）、markdownlint（全 `.md` が対象）、shellcheck / shfmt（`run_*.sh`）、秘密スキャン（`BEGIN OPENSSH PRIVATE KEY`, `gho_`, `npm_` 等のパターン）。
+このリポジトリの CI（`.github/workflows/ci.yml`）の主な失敗原因: skill-lock 不一致（`dot_agents/dot_skill-lock.json` の skills キーと実ディレクトリが一致しない。新規スキル追加時に発生しうる。修正は不足ディレクトリ名のエントリを lock の skills に追加する。チェックはキー名の一致のみを見るため最小エントリで通る）、markdownlint（全 `.md` が対象）、shellcheck / shfmt（`run_*.sh`）、秘密スキャン（OpenSSH 秘密鍵のヘッダ行、`gho_`, `npm_` 等のパターン）。
 
 **完了条件**: 全チェックが成功し、その旨をユーザーに報告している。
 
