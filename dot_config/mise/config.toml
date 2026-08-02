@@ -28,9 +28,9 @@ markdownlint-cli2 = "latest"
 pre-commit = "latest"
 neovim = "latest"
 "github:can1357/oh-my-pi" = "latest"
-herdr = "latest"
+"github:ogulcancelik/herdr" = "latest"
 lazygit = "latest"
-hunk = "latest"
+"github:modem-dev/hunk" = "latest"
 
 [settings]
 github_attestations = false
